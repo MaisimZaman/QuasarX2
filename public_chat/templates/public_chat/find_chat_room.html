@@ -1,0 +1,42 @@
+{% extends 'blog/base_blog.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'public_chat:create-chat-room'  %}">Create a Chat Server</a>
+    </div>
+    {% for room in chat_room %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div>
+                <small class="text-muted">Chat server made: {{ room.date_created }}</small>
+            </div>
+            {% if room.users.count > 1 %}
+            <h6>{{ room.users.count }} active users</h6>
+            {% elif room.users.count == 1%}
+            <h6>1 active user </h6>
+            {% else %}
+            <h6>No active users </h6>
+            {% endif %}
+            <div>
+            <h6>{{max_members}}</h6>
+            {% if room.users.count == max_members %}
+                Room is full
+            {% endif %}
+        <div class="article-metadata">
+        </div>
+        <h1><a class="article-title" href="{% url 'public_chat:chat-server'%}?room_id={{room.id}}">‎‎‎‎‎‏‏‎{{ room.title }}</a></h1>
+        </div>
+    </article>
+    <article class="media picture-section">
+        <h5>{{room.discription}}</h5>
+    </article>
+
+
+
+
+    
+    {% endfor %}
+{% endblock content %}
+

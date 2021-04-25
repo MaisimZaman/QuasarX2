@@ -1,0 +1,88 @@
+{% extends 'blog/base_blog.html' %}
+{% load static %}
+
+
+<style "text/css">
+
+.boarder-col{
+  color: #111111;
+}
+
+</style>
+
+
+{% block content %}
+<article class="media picture-section">
+<h1>Videos and Posts related to   {{topic_name}}</h1>
+
+
+</article>
+  {% for video in videos %}
+
+
+    <article class="media content-section">
+      <img  class='rounded-circle article-img' src="{{ video.author.profile_image.url }}">
+      <div class="media-body">
+      <div class="article-metadata">
+          <a class="mr-2" href="{% url 'account:view' video.author.id%}">{{ video.author }}</a>
+          <small class="text-muted">{{ video.date_posted }}</small>
+
+      </div>
+      <h2><a class="article-title" href="#">{{ video.title }}</a></h2>
+      </div>
+    </article>
+    <article class="media picture-section">
+      <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="{{video.video_link}}" allowfullscreen></iframe>
+      </div>
+    </article>
+    {% endfor %}
+    {% for post in posts %}
+        <article class="media content-section">
+            <img  class='rounded-circle article-img' src="{{ post.author.profile_image.url }}">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'account:view' user_id=post.author.id %}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
+        <div>
+        </div>
+        {% if post.image.url != '/media/default.jpg'  %}
+        <article class="media content-section">
+               <img class='img-thumbnail' src="{{ post.image.url }}">
+        </article>
+        <article class="media picture-section">
+              <h5>2 Comments...</h5>
+        </article>
+        <div>
+          <!--<h1>━━━━━━━━━━━━━━━━━</h1>-->
+        </div>
+        {% endif %}
+    {% endfor %}
+{% if is_paginated %}
+
+{% if page_obj.has_previous %}
+  <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+  {% if page_obj.number == num %}
+    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+  {% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+{% endif %}
+
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends 'blog/base_blog.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style type="text/css">
+    .pic-section {
+        background: #0f0f0f;
+        padding: 10px 20px;
+        border: 10px solid #020202;
+        max-width: 500px;
+
+    
+    }
+
+    .acontent-section {
+        background: #222222;
+        padding: 10px 20px;
+        border-radius: 3px;
+        margin-bottom: 0px;
+    }
+
+    .apic-section {
+        background: #222222;
+        border-radius: 3px;
+        margin-bottom: 50px;
+        min-width: 500px;
+    }
+</style>
+
+<h1>Browse Topics</h1>
+<form class="search-bar justify-content-start" onsubmit="return executeQueryTopics();">
+	<input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search for topic...">
+</form>
+
+<div>  
+<h1>___________________________________________</h1>
+</div>
+{% for topic in topics %}
+    <article class="media acontent-section">
+        <div class="media-body">
+        <div class="article-metadata">
+        </div>
+        <h1><a class="article-title" href="{% url 'blog:topic-view' topic.name %}">‎‎‎‎‎‏‏‎{{ topic.name }}</a></h1>
+        </div>
+    </article>
+        <article class="media apic-section">
+            <img class='img-thumbnail' src="{{ topic.image.url }}">
+        </article>
+        
+
+{% endfor %}
+
+{% endblock content %}
+
+
+<script type="text/javascript">
+	
+
+
+    function executeQueryTopics() {
+		//var query = ""
+		//query = document.getElementById('id_q_large').value;
+		//if (query == ""){
+		query = document.getElementById('id_q_large').value;
+		//}
+	    window.location.replace("{% url 'blog:search-topics' %}?q=" + query)
+	    return false
+	}
+
+
+
+</script>

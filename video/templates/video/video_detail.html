@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <article class="media picture-section">
+      <img  class='rounded-circle article-img' src="{{ video.author.profile_image.url }}">
+      <div class="media-body">
+      <div class="article-metadata">
+          <a class="mr-2" href="{% url 'account:view' video.author.id %}">{{ video.author }}</a>
+          <small class="text-muted">{{ video.date_posted }}</small>
+
+      </div>
+      <h2><a class="article-title" href="{% url 'video:video-detail' video.id %}">{{ video.title }}</a></h2>
+      </div>
+    </article>
+    <div class="embed-responsive embed-responsive-21by9">
+      <iframe class="embed-responsive-item" width=100px height=100px src="{{video.video_link}}"  allowfullscreen></iframe>
+    </div>
+    <article class="media content-section">
+      <div>
+      {% if video.views > 1 %}
+        <h5>{{video.views}} Views</h5>
+      {% elif video.views == 1%}
+        <h5>1 view </h5>
+      {% else %}
+        <h5>No views </h5>
+      {% endif %}
+      </div>
+    </article>
+    <article class='media content-section'>
+    <h6>{{video.discription}}</h6>
+    </article>
+
+
+{% endblock content %}
