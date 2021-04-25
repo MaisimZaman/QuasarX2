@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import builtins
 from pathlib import Path
 import os
+from pathlib import Path
+from decouple import config
 
 from django.http.response import HttpResponsePermanentRedirect 
 
@@ -24,7 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'clh5y737ts23c+c_jt!x&l71&&4rc+w896#q712)#_7(=bi5-%'
+
+
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ALLOWED_HOSTS = ["138.197.175.18",]
+
+ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
+
+WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
+
+ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -79,8 +91,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ChatServerPlayground.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -97,9 +107,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "ChatServerPlayground.wsgi.application"
-
-ASGI_APPLICATION = "ChatServerPlayground.routing.application"
 
 
 CHANNEL_LAYERS = {
@@ -167,22 +174,36 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = config('AWS_LOCATION')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media_cdn'),
 ]
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+TEMP = os.path.join(BASE_DIR, 'temp')
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'CodingWithMitch Team <noreply@codingwithmitch.com>'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
-TEMP = os.path.join(BASE_DIR, 'media_cdn/temp')
-
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http//138.197.175.18"
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
