@@ -38,6 +38,8 @@ WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
 ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
 
+SECRET_KEY = config("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
