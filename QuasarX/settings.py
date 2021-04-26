@@ -56,7 +56,6 @@ AUTHENTICATION_BACKEND = (
     'account.backends.CaseInsensitiveModelBackend'
 )
 
-ALLOWED_HOSTS = ["127.0.0.1","0.0.0.0", "10.0.0.77"]
 
 
 # Application definition
