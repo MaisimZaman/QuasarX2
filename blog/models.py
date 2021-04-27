@@ -27,7 +27,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateField(default=timezone.now)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, upload_to='post_images')
+    image = models.ImageField(null=True, upload_to='static/post_images')
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL, default=None, blank=True, related_name='liked')
     topic = models.CharField(default=find_topic(title), max_length=50)
     type = models.CharField(default='image_post', max_length=20)
@@ -93,7 +93,7 @@ class Like(models.Model):
 class Topic(models.Model):
     name = models.CharField(max_length=50)
     related_posts = models.QuerySet(Post.objects.filter(topic=name))
-    image = models.ImageField(upload_to='topic_images', null=True)
+    image = models.ImageField(upload_to='static/topic_images', null=True)
     followers = models.QuerySet()
 
 

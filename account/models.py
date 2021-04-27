@@ -39,13 +39,13 @@ class MyAccountManager(BaseUserManager):
 
 
 def get_profile_image_filepath(self, filename):
-	return 'profile_images/' + str(self.pk) + '/profile_image.png'
+	return 'satic/profile_images/' + str(self.pk) + '/profile_image.png'
 
 def get_background_image_filepath(self, filename):
-	return 'background_images/' + str(self.pk) + '/profile_image.png'
+	return 'static/background_images/' + str(self.pk) + '/profile_image.png'
 
 def get_default_profile_image():
-	return "defaults/default_profile_image.png"
+	return "static/defaults/default_profile_image.png"
 
 
 class Account(AbstractBaseUser):
