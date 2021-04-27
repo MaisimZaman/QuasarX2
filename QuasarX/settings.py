@@ -114,7 +114,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('138.197.175.18', 6379)],
         },
     },
 }
@@ -207,7 +207,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'CodingWithMitch Team <noreply@codingwithmitch.com>'
 
 
-BASE_URL = "http//138.197.175.18"
+BASE_URL = "138.197.175.18"
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
