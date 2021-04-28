@@ -78,7 +78,11 @@
 		  <div class="card-body">
 		  	<div class="d-flex flex-column justify-content-center p-4">
 		  		<div class="image-container mx-auto mb-4">
-		  			<img class="d-block border border-dark rounded-circle img-fluid mx-auto profile-image" alt="https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png"  id="id_profile_image" src="{{profile_image}}">
+				  	{% if profile_image.url != "" %}
+		  			<img class="d-block border border-dark rounded-circle img-fluid mx-auto profile-image"   id="id_profile_image" src="{{profile_image}}">
+					{% else %}
+						<img class="d-block border border-dark rounded-circle img-fluid mx-auto profile-image"   id="id_profile_image" src="https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png">
+					{% endif %}
 		  		</div>
 		  		<p class="mt-4 mb-1 field-heading">Email</p>
 		  		{%  if is_self %}
