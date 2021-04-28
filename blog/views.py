@@ -150,7 +150,7 @@ class UserPostListView(ListView):
 
 
 
-"""
+
 class PostDetailView(DetailView):
     model = Post
 
@@ -160,22 +160,23 @@ class PostDetailView(DetailView):
         comments = Post.objects.all()
         context['comments'] = comments
     '''
-"""
 
+
+'''
 def PostDetailView(request, *args, **kwargs):
     context = {}
     post_id = kwargs.get('pk')
     post = Post.objects.get(id=post_id)
-    comments = Comment.objects.filter(post=post)
+    #comments = Comment.objects.filter(post=post)
     context['object'] = post
-    context['comments'] = comments
+    #context['comments'] = comments
 
 
 
     
 
     return render(request, "blog/post_detail.html", context)
-
+'''
 
 @login_required
 def PostCreateView(request):
