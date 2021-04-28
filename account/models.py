@@ -45,7 +45,7 @@ def get_background_image_filepath(self, filename):
 	return 'static/background_images/' + str(self.pk) + '/profile_image.png'
 
 def get_default_profile_image():
-	return "static/default_main.png"
+	return "static/defaults/default_img2.jpg"
 
 
 class Account(AbstractBaseUser):
