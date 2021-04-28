@@ -50,7 +50,13 @@
                       <div class="like-count{{post.id}}"> {{post.num_likes}} </div>
                   </div>
                   <div class="column">
-                      {{post.liked.count}} likes
+                    {% if post.liked.count == 0 %}
+                        No likes
+                    {% elif post.liked.count == 1 %}
+                        1 like
+                    {% else %}
+                        {{post.liked.count}} likes
+                    {% endif %}
                   </div>
               </div>
           </form>

@@ -42,6 +42,11 @@ class Post(models.Model):
     @property
     def num_likes(self):
         self.liked.all().count()
+
+    
+    @property
+    def comments(self):
+        return Comment.objects.filter(post_id=self.pk)
         
 
     
@@ -64,7 +69,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post =  models.IntegerField(default=0)
     date_posted = models.DateField(default=timezone.now)
     content = models.TextField(max_length=300)
 
