@@ -19,6 +19,11 @@ class Video(models.Model):
     type = models.CharField(default='video_posts', max_length=20)
     discription = models.TextField(default='', max_length=10000)
     views = models.IntegerField(default=0)
+    
+    @property
+    def use_link(self):
+        final = str(self.video_link).replace("watch?v=", "embed/")
+        return final 
 
 
     def add_view(self):
